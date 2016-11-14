@@ -10,3 +10,4 @@ script:
   - coverage combine python27.coverage python35.coverage
 after_success:
   - coveralls
+  - codeclimate-test-reporter
