@@ -3,7 +3,7 @@
 
 """MDSelect widgets."""
 
-from django.forms import Select, SelectMultiple
+from django.forms import Select
 from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import format_html
@@ -19,7 +19,7 @@ class MDSelect(Select):
         super(MDSelect, self).__init__(*args, **kwargs)
         self.disable_select = disable_select
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None):
         """Render the widget."""
         if value is None:
             value = ''

@@ -3,7 +3,7 @@
 
 """MDMultiSelect module."""
 
-from django.forms import Select, SelectMultiple
+from django.forms import SelectMultiple
 from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
