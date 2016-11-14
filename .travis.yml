@@ -1,0 +1,10 @@
+language: python
+cache:
+  pip: true
+  directories:
+    - .tox
+script:
+  - tox
+  - coverage combine python27.coverage python35.coverage
+after_success:
+  - coveralls
