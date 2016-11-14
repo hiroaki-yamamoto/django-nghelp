@@ -9,7 +9,9 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from .mdselect import MDSelect
 
+
 class MDMultiSelect(MDSelect, SelectMultiple):
+
     """MDSelect widget that allows multiple select."""
 
     allow_multiple_selected = True

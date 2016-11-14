@@ -8,6 +8,7 @@ from .mdselect import MDSelect
 
 
 class MDDateSelect(forms.SelectDateWidget):
+
     """Date Select for Angular Material."""
 
     select_widget = MDSelect

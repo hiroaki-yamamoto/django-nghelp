@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 
 
 class MDSelect(Select):
+
     """MDSelect."""
 
     def __init__(self, disable_select=False, *args, **kwargs):
