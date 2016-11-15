@@ -10,6 +10,7 @@ from django.utils.html import format_html
 
 
 class MDCheckBox(forms.CheckboxInput):
+
     """Material Checkbox."""
 
     def __init__(self, label="", *args, **kwargs):
