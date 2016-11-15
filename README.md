@@ -169,4 +169,39 @@ class UserInfoForm(AllRequiredForm, forms.ModelForm):
 
 ## Features 3: Widgets for Angular Materials
 
-The doc is WIP.
+If you like [Material Design], you'd also like to use [Angular Material], but
+as you can see the doc. the components are using special tags. For example,
+`select` and `option` input controllers should be replaced with `mdSelect` and
+`mdOption` and they are not provided by built-in widgets.
+
+This widget provides the widgets:
+
+```Python
+from django import forms
+from django_nghelp.forms import AngularForm
+from django_nghelp.widgets import (
+  MDSelect, MDMultiSelect, MDDatePicker, MDDateSelect
+)
+
+from .models import ExampleModel
+
+class ExampleForm(AngularForm, forms.ModelForm):
+  class Meta(object):
+    model = ExampleModel
+    exclude = ("secret_field", )
+    widgets = {
+      "start_since": MDDateSelect(),
+      "available_date": MDDatePicker(),
+      "shape": MDSelect(choices=(
+        ("F", "Fat"), ("N": "Normal"), ("T", "Thin")
+      ))
+    }
+    # Be patient for MDCheckBox
+```
+
+[Material Design]: https://material.google.com/
+[Angular Material]: https://material.angularjs.org
+
+# Contribution
+If you found a bug, feel free to send an issue. However, sending a pull request
+is more appreciated.
