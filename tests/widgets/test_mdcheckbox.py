@@ -14,7 +14,6 @@ setup()
 
 
 class SimpleMDCheckBoxTest(TestCase):
-
     """Simple MDCheckBox Test."""
 
     def setUp(self):
