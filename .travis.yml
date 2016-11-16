@@ -41,6 +41,7 @@ deploy:
       HxXoVBtQT1kO1h/M2It+LeViZnXX+OA+oABn/AeC9rVN5VPcIq2E+Gz6RO6ysBdYsocj2Njm
       PQvRA2v1NCPb5wPGVhW2sYnHnQGcZUOw1AwJvmWwwTQA3L9Ajf487SQW07azyrzrTB/EAtsd
       NbhWPrmiAxKePk4s5Ya5S8d9ndQMmeKAv3g=
-  server: "https://testpypi.python.org"
+  server: "https://testpypi.python.org/pypi"
+  skip_cleanup: true
   on:
     tags: true
