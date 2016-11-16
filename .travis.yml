@@ -11,3 +11,10 @@ script:
 after_success:
   - coveralls
   - codeclimate-test-reporter
+deploy:
+  provider: pypi
+  user: "${PYPI_USER_TOKEN}"
+  password: "${PYPI_PW_TOKEN}"
+  server: "https://testpypi.python.org"
+  on:
+    tags: true
