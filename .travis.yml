@@ -43,5 +43,9 @@ deploy:
       NbhWPrmiAxKePk4s5Ya5S8d9ndQMmeKAv3g=
   server: "https://testpypi.python.org/pypi"
   skip_cleanup: true
+  distributions: sdist
   on:
     tags: true
+    python:
+      - "3.4"
+      - "2.7"
