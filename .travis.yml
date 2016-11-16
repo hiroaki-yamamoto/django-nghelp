@@ -6,6 +6,7 @@ addons:
     - pandoc
 cache:
   pip: true
+  apt: true
   directories:
     - .tox
 script:
