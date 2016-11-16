@@ -32,17 +32,16 @@ deploy:
       svCTGkjffq8T2zSp4AOTiLyf5KwG7ro84fc=
   password:
     secure: >-
-      TigXxajPGqizi8Zl4qMs8dTLsuwJwRChw+93yhNf1ZqfKMKgjbOqZNoQgkOYZUWR7bUemg+j
-      VUURbLOnZLG5ykE9MsW1/DjKgSecOSxeUhWlf3h2TziydrfHq9KyTkSOZKcdcnOkEQoUP+1u
-      W461KjWrtFd0WNUGvvM6I95IzY5w+raqOzrgmSemohnBXF8Lz55lYuQ9tbcRz68H2+kbuviI
-      IP6U4Bk+9L16a4xkwByqfYp1Lg3Lve6KoPnxJYUWojc/YBLMce31Gw4Rk2iy3wNZPzGklQK3
-      XlBhTWvWYImA4UMXZ8jtMaj3l6vTD0ukGOMtRCc4U9HJFR0i+GpR+zNYneog3DoOr+1NrDMv
-      H3EklH6i1UPM56OnB/z/baeCnXn7wCSPyqEdqw7scbL7aGTyI2FFL6ewzNkafvno82t2y0s5
-      sHsQr9sMbtIQm+CLhpYpS1dQGeJfWOGmr75tvag7MPFR4eqkIAoDdKwzH1ImzedUOdMdEFwj
-      HxXoVBtQT1kO1h/M2It+LeViZnXX+OA+oABn/AeC9rVN5VPcIq2E+Gz6RO6ysBdYsocj2Njm
-      PQvRA2v1NCPb5wPGVhW2sYnHnQGcZUOw1AwJvmWwwTQA3L9Ajf487SQW07azyrzrTB/EAtsd
-      NbhWPrmiAxKePk4s5Ya5S8d9ndQMmeKAv3g=
-  server: "https://testpypi.python.org/pypi"
+      gRqzq4wU0ChtyTLdbWTAgk1GrEMVuyv/fF651gkDrD73zRKrk04Qbfj3mpyIc6OHPjB1NJV+
+      tJo9vPuhlAqyX6JqFa51BsbKZkceYMM1fTTCCQWWSSrg8Ubwc+eJK6CBX+IofKSWreTQLcP7
+      oys7BJ9Ha0rVfmB50DOFEBeBg2Iur052eMCnc9cbpzKcdpjKU5L2uTDuCjg0djAlPE6IqE0S
+      UZUXqOP6NILgFqgSKPy3J45e949IzRCS1FMWEvxleKOQszKSKnKSdRLw/1sQc7U6qvuhAu3q
+      aUDTbjvIB8TM0KAA8etOO+9g0PTvLC2XsQ0buOqg3KJABiBoojW2dzxbL1feq2//SG4WkDZq
+      0OShJmfz1fNzKxW4DJ3+jVAH4zo2Mh+YBvOOHEB9icInMT/kgrAmD/X5RkjW5lvBm4/QKsj5
+      s7VXEKWsx3pGAZMG9w/kFfk4l+UQxSloXbA//nDZDxovqZ5H4Mb/HxuHxI5jJNc/3cbfg2AN
+      ljQMT7RCWF+U8J+gcAfpXvyidZiWdLt1kfIJJte8IwxWZAvzQod6P8t6cMgG57VbVLIceQSB
+      P9jp/isOvHCnFjheXLCBkcmhrZnaeKAbnHFXy7gY/Ff3Ud+kgLndG58lqXZSdI/4O4V0doTf
+      3b6/P+CJ0/vS4fUmi0CT81Ln5AVi7ppA+qQ=
   skip_cleanup: true
   distributions: sdist
   on:

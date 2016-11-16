@@ -11,7 +11,7 @@ desc = "AngularJS Frontend Helper for Django"
 license = "MIT"
 url = "https://github.com/hiroaki-yamamoto/django-nghelp.git"
 keywords = "django AngularJS"
-version = "0.0.7"
+version = "1.0.0"
 
 author = "Hiroaki Yamamoto"
 author_email = "hiroaki@hysoftware.net"
