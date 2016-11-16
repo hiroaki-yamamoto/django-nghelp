@@ -180,7 +180,7 @@ This widget provides the widgets:
 from django import forms
 from django_nghelp.forms import AngularForm
 from django_nghelp.widgets import (
-  MDSelect, MDMultiSelect, MDDatePicker, MDDateSelect
+  MDSelect, MDMultiSelect, MDDatePicker, MDDateSelect, MDCheckBox
 )
 
 from .models import ExampleModel
@@ -194,14 +194,14 @@ class ExampleForm(AngularForm, forms.ModelForm):
       "available_date": MDDatePicker(),
       "shape": MDSelect(choices=(
         ("F", "Fat"), ("N": "Normal"), ("T", "Thin")
-      ))
+      )),
+      "needs_fill": MDCheckBox("Fill with border color?")
     }
-    # Be patient for MDCheckBox
 ```
 
 [Material Design]: https://material.google.com/
 [Angular Material]: https://material.angularjs.org
 
 # Contribution
-If you found a bug, feel free to send an issue. However, sending a pull request
+If you found bugs, feel free to send issues. However, sending a pull request
 is more appreciated.
