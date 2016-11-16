@@ -13,8 +13,30 @@ after_success:
   - codeclimate-test-reporter
 deploy:
   provider: pypi
-  user: "${PYPI_USER_TOKEN}"
-  password: "${PYPI_PW_TOKEN}"
+  user:
+    secure: >-
+      R2R3O4H7V0aquEr74MUC264ll8I42RjZWkqLn5wFBPi71K8ABjYatEwIRSxu0iIvqyllWlP3
+      3DRZHn362EDMw7byegyM+2x2Rgtdk2jgXWpIvUvasx7s/kkt6+26QmfuVLyl7IWCidFsX6D+
+      PnzVjlRUSO19tAiSJiPjL7VAW3tu/VAQZLHVdJlYWLjdBesH8DLG9YFtcHdbGDwHWUNwfFH6
+      EVW/SOX6SOn0dosls7sQB3nvar9fXlbL/ZhL6/Pxe5yJOYbUW8KJlx87pnmnz7rCb43kSxJ5
+      vn0V3fRVAZdsgglwow0mDccatDO5g1o+b0GTZW4Yn+gZusKUg7z2QIKPyWL+CqK7X/qMzrQu
+      8ggLMNdHk+XtQKkxxEH7iuwaz1qx6AKE0dIfqBzCkrcD+i9EuvVQVJ0ATJb5ZqwtYILxzEt/
+      EI2phdmSApC/c7AE2hHB5qc2nptFJChK8XBoCgEL2SV+8jLyzui9yjc6A1GX4okxYnFfqBnj
+      +6DIFxqXL+Ni6Jfd6EXm041jr88QbymN+HYoY7rUXDiUOaHEGwie3hqJNPr3OOvJ13hnMYmS
+      pzloL11ucQvN+/NYJ+8YKXbCZ4j1nka1yRloTt5bB8SErkZIPORi5kZwNIpiTO8/aWvKci7t
+      svCTGkjffq8T2zSp4AOTiLyf5KwG7ro84fc=
+  password:
+    secure: >-
+      TigXxajPGqizi8Zl4qMs8dTLsuwJwRChw+93yhNf1ZqfKMKgjbOqZNoQgkOYZUWR7bUemg+j
+      VUURbLOnZLG5ykE9MsW1/DjKgSecOSxeUhWlf3h2TziydrfHq9KyTkSOZKcdcnOkEQoUP+1u
+      W461KjWrtFd0WNUGvvM6I95IzY5w+raqOzrgmSemohnBXF8Lz55lYuQ9tbcRz68H2+kbuviI
+      IP6U4Bk+9L16a4xkwByqfYp1Lg3Lve6KoPnxJYUWojc/YBLMce31Gw4Rk2iy3wNZPzGklQK3
+      XlBhTWvWYImA4UMXZ8jtMaj3l6vTD0ukGOMtRCc4U9HJFR0i+GpR+zNYneog3DoOr+1NrDMv
+      H3EklH6i1UPM56OnB/z/baeCnXn7wCSPyqEdqw7scbL7aGTyI2FFL6ewzNkafvno82t2y0s5
+      sHsQr9sMbtIQm+CLhpYpS1dQGeJfWOGmr75tvag7MPFR4eqkIAoDdKwzH1ImzedUOdMdEFwj
+      HxXoVBtQT1kO1h/M2It+LeViZnXX+OA+oABn/AeC9rVN5VPcIq2E+Gz6RO6ysBdYsocj2Njm
+      PQvRA2v1NCPb5wPGVhW2sYnHnQGcZUOw1AwJvmWwwTQA3L9Ajf487SQW07azyrzrTB/EAtsd
+      NbhWPrmiAxKePk4s5Ya5S8d9ndQMmeKAv3g=
   server: "https://testpypi.python.org"
   on:
     tags: true
