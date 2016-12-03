@@ -11,7 +11,6 @@ from django.utils.safestring import mark_safe
 
 
 class MDSelect(Select):
-
     """MDSelect."""
 
     def __init__(self, disable_select=False, *args, **kwargs):
@@ -43,10 +42,13 @@ class MDSelect(Select):
                 selected_choices.remove(option_value)
         else:
             selected_html = ''
-        return format_html('<md-option data-value="{}"{}>{}</md-option>',
-                           option_value,
-                           selected_html,
-                           force_text(option_label))
+        return format_html(
+            '<md-option data-value="{}"{}>{}</md-option>',
+            option_value, selected_html, force_text(option_label)
+        ) if option_value else format_html(
+            '<md-option{}>{}</md-option>',
+            selected_html, force_text(option_label)
+        )
 
     def render_options(self, selected_choices):
         """Render option group."""

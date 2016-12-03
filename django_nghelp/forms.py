@@ -8,7 +8,6 @@ from django import forms
 
 
 class AngularForm(forms.Form):
-
     """AngularJS Form."""
 
     ng_model_prefix = "model"
@@ -22,7 +21,6 @@ class AngularForm(forms.Form):
 
 
 class AllRequiredForm(forms.Form):
-
     """All required form."""
 
     def __init__(self, *args, **kwargs):
