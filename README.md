@@ -2,6 +2,7 @@
 
 [![Travis]][Travis Link] [![Code Climate]][Code Climate Link]
 [![Landscape]][Landscape Link] [![Coveralls]][Coveralls Link]
+
 [Travis]: https://travis-ci.org/hiroaki-yamamoto/django-nghelp.svg?branch=master
 [Travis Link]: https://travis-ci.org/hiroaki-yamamoto/django-nghelp
 [Code Climate]: https://codeclimate.com/github/hiroaki-yamamoto/django-nghelp/badges/gpa.svg
