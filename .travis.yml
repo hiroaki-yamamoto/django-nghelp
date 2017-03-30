@@ -11,7 +11,7 @@ cache:
     - .tox
 script:
   - tox
-  - coverage combine python27.coverage python35.coverage
+  - coverage combine python27.coverage python36.coverage
 after_success:
   - pandoc -f markdown -t rst -o README.rst README.md
   - coveralls
