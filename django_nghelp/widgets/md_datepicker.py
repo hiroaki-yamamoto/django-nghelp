@@ -10,7 +10,6 @@ from django.utils.html import format_html
 
 
 class MDDatePicker(forms.DateInput):
-
     """AngularJS Material DatePicker for Django."""
 
     input_type = "date"

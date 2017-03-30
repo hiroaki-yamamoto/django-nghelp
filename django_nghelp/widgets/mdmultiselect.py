@@ -11,7 +11,6 @@ from .mdselect import MDSelect
 
 
 class MDMultiSelect(MDSelect, SelectMultiple):
-
     """MDSelect widget that allows multiple select."""
 
     allow_multiple_selected = True
