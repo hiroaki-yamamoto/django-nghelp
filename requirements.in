@@ -1,0 +1,5 @@
+pip-tools
+codeclimate-test-reporter
+coverage
+coveralls
+tox
