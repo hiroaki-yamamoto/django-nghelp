@@ -16,11 +16,12 @@ after_success:
   - coveralls
   - codeclimate-test-reporter
 before_deploy:
+  - "git config user.email 'travis@travis-ci.com'"
+  - "git config user.name 'Travis CI'"
+  - "git checkout -b ${TRAVIS_TAG}"
   - pandoc -f markdown -t rst -o README.rst README.md
   - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
   - "mv setup.py.new setup.py"
-  - "git config user.email 'travis@travis-ci.com'"
-  - "git config user.name 'Travis CI'"
   - "git add ."
   - "git commit -m \"Release for ${TRAVIS_TAG}\""
   - >
