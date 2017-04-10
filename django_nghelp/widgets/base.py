@@ -15,7 +15,7 @@ class BaseWidget(Widget):
 
     def _render(self, template_name, context, renderer=None):
         """Override render protected function."""
-        renderer = renderer or Jinja2({
+        renderer = Jinja2({
             'DIRS': [os.path.join(os.path.dirname(__file__), "./jinja2")],
             'APP_DIRS': True,
             'NAME': "django-nghelp-widgets",
