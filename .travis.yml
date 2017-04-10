@@ -16,7 +16,7 @@ after_success:
   - coveralls
   - codeclimate-test-reporter
 before_deploy:
-  - pandoc -f markdown -t rst -o README.rst README.md
+  - "pandoc -f markdown -t rst -o README.rst README.md"
   - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
   - "mv setup.py.new setup.py"
   - >
