@@ -18,7 +18,12 @@ class Jinja2Engine(Jinja2Base):
     def engine(self):
         """Return engine setting."""
         return self.backend({
-            'DIRS': [os.path.join(os.path.dirname(__file__), "./jinja2")],
+            'DIRS': [
+                os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)),
+                    self.backend.app_dirname
+                )
+            ],
             'APP_DIRS': True,
             'NAME': "django-nghelp-widgets",
             'OPTIONS': {}
