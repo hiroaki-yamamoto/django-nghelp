@@ -23,6 +23,7 @@ before_deploy:
       git archive --format tar
       --prefix=django-nghelp-${TRAVIS_TAG}/
       -o ${HOME}/django-nghelp-${TRAVIS_TAG}.tar HEAD
+  - cd ${HOME}
   - tar xf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar
   - "cd ${HOME}/django-nghelp-${TRAVIS_TAG}"
   - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
