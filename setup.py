@@ -5,13 +5,13 @@
 import sys
 from setuptools import setup, find_packages
 
-dependencies = ["django"]
+dependencies = ("django>=1.11", "jinja2")
 name = "django-nghelp"
 desc = "AngularJS Frontend Helper for Django"
 license = "MIT"
 url = "https://github.com/hiroaki-yamamoto/django-nghelp.git"
 keywords = "django AngularJS"
-version = "1.0.1"
+version = "[VERSION]"
 
 author = "Hiroaki Yamamoto"
 author_email = "hiroaki@hysoftware.net"

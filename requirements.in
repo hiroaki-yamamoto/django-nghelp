@@ -2,4 +2,8 @@ pip-tools
 codeclimate-test-reporter
 coverage
 coveralls
+detox
 tox
+django
+flake8
+flake8-docstrings

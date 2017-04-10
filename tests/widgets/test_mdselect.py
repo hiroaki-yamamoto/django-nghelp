@@ -24,10 +24,10 @@ class SimpleMDSelectTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", None)).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
+            "<md-select data-name=\"result\">"
             "<md-option data-value=\"test\">Test</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
-            "<md-option data-selected=\"selected\">Test3</md-option>"
+            "<md-option data-selected>Test3</md-option>"
             "</md-select>"
         )
         self.assertEqual(result, data)
@@ -36,8 +36,8 @@ class SimpleMDSelectTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", "test")).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
-            "<md-option data-value=\"test\" data-selected=\"selected\">"
+            "<md-select data-name=\"result\">"
+            "<md-option data-value=\"test\" data-selected>"
             "Test</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-option>Test3</md-option>"
@@ -49,7 +49,7 @@ class SimpleMDSelectTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", "test_a")).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
+            "<md-select data-name=\"result\">"
             "<md-option data-value=\"test\">Test</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-option>Test3</md-option>"
@@ -77,12 +77,12 @@ class MDSelectGroupingTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", None)).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
+            "<md-select data-name=\"result\">"
+            "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-optgroup data-label=\"test\">"
             "<md-option data-value=\"testTest1\">Test Test 1</md-option>"
             "<md-option data-value=\"testTest2\">Test Test 2</md-option>"
             "</md-optgroup>"
-            "<md-option data-value=\"test2\">Test2</md-option>"
             "</md-select>"
         )
         self.assertEqual(result, data)
@@ -98,7 +98,7 @@ class MDSelectEmptyFieldTest(TestCase):
     def test_render(self):
         """The generated html should be correct."""
         result = str(self.field.render("result", None)).replace("\n", "")
-        data = "<md-select name=\"result\"></md-select>"
+        data = "<md-select data-name=\"result\"></md-select>"
         self.assertEqual(result, data)
 
 
@@ -115,7 +115,7 @@ class MDSelectDisableSelectTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", None)).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
+            "<md-select data-name=\"result\">"
             "<md-option data-value=\"test\">Test</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-option>Test3</md-option>"
@@ -127,7 +127,7 @@ class MDSelectDisableSelectTest(TestCase):
         """The generated html should be correct."""
         result = str(self.field.render("result", "test")).replace("\n", "")
         data = (
-            "<md-select name=\"result\">"
+            "<md-select data-name=\"result\">"
             "<md-option data-value=\"test\">Test</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-option>Test3</md-option>"

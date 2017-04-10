@@ -23,7 +23,7 @@ class SimpleMDDatePickerTest(TestCase):
         """The generated content should be correct."""
         result = str(self.widget.render("result", None)).replace("\n", "")
         data = (
-            "<md-datepicker name=\"result\" type=\"date\">"
+            "<md-datepicker data-name=\"result\">"
             "</md-datepicker>"
         )
         self.assertEqual(result, data)
@@ -33,7 +33,7 @@ class SimpleMDDatePickerTest(TestCase):
         now = datetime.utcnow().isoformat()
         result = str(self.widget.render("result", now)).replace("\n", "")
         data = (
-            "<md-datepicker name=\"result\" type=\"date\" value=\"{}\">"
+            "<md-datepicker data-name=\"result\" data-value=\"{}\">"
             "</md-datepicker>"
         ).format(now)
         self.assertEqual(result, data)

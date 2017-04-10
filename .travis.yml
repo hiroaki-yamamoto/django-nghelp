@@ -10,39 +10,68 @@ cache:
   directories:
     - .tox
 script:
-  - tox
+  - detox
   - coverage combine python27.coverage python36.coverage
 after_success:
-  - pandoc -f markdown -t rst -o README.rst README.md
   - coveralls
   - codeclimate-test-reporter
+before_deploy:
+  - pandoc -f markdown -t rst -o README.rst README.md
+  - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
+  - "mv setup.py.new setup.py"
+  - "git config user.email 'travis@travis-ci.com'"
+  - "git config user.name 'Travis CI'"
+  - "git add ."
+  - "git commit -m \"Release for ${TRAVIS_TAG}\""
+  - >
+      git archive --format tar.xz
+      --prefix=django-nghelp-${TRAVIS_TAG}/
+      -o ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.xz HEAD
 deploy:
-  provider: pypi
-  user:
-    secure: >-
-      R2R3O4H7V0aquEr74MUC264ll8I42RjZWkqLn5wFBPi71K8ABjYatEwIRSxu0iIvqyllWlP3
-      3DRZHn362EDMw7byegyM+2x2Rgtdk2jgXWpIvUvasx7s/kkt6+26QmfuVLyl7IWCidFsX6D+
-      PnzVjlRUSO19tAiSJiPjL7VAW3tu/VAQZLHVdJlYWLjdBesH8DLG9YFtcHdbGDwHWUNwfFH6
-      EVW/SOX6SOn0dosls7sQB3nvar9fXlbL/ZhL6/Pxe5yJOYbUW8KJlx87pnmnz7rCb43kSxJ5
-      vn0V3fRVAZdsgglwow0mDccatDO5g1o+b0GTZW4Yn+gZusKUg7z2QIKPyWL+CqK7X/qMzrQu
-      8ggLMNdHk+XtQKkxxEH7iuwaz1qx6AKE0dIfqBzCkrcD+i9EuvVQVJ0ATJb5ZqwtYILxzEt/
-      EI2phdmSApC/c7AE2hHB5qc2nptFJChK8XBoCgEL2SV+8jLyzui9yjc6A1GX4okxYnFfqBnj
-      +6DIFxqXL+Ni6Jfd6EXm041jr88QbymN+HYoY7rUXDiUOaHEGwie3hqJNPr3OOvJ13hnMYmS
-      pzloL11ucQvN+/NYJ+8YKXbCZ4j1nka1yRloTt5bB8SErkZIPORi5kZwNIpiTO8/aWvKci7t
-      svCTGkjffq8T2zSp4AOTiLyf5KwG7ro84fc=
-  password:
-    secure: >-
-      gRqzq4wU0ChtyTLdbWTAgk1GrEMVuyv/fF651gkDrD73zRKrk04Qbfj3mpyIc6OHPjB1NJV+
-      tJo9vPuhlAqyX6JqFa51BsbKZkceYMM1fTTCCQWWSSrg8Ubwc+eJK6CBX+IofKSWreTQLcP7
-      oys7BJ9Ha0rVfmB50DOFEBeBg2Iur052eMCnc9cbpzKcdpjKU5L2uTDuCjg0djAlPE6IqE0S
-      UZUXqOP6NILgFqgSKPy3J45e949IzRCS1FMWEvxleKOQszKSKnKSdRLw/1sQc7U6qvuhAu3q
-      aUDTbjvIB8TM0KAA8etOO+9g0PTvLC2XsQ0buOqg3KJABiBoojW2dzxbL1feq2//SG4WkDZq
-      0OShJmfz1fNzKxW4DJ3+jVAH4zo2Mh+YBvOOHEB9icInMT/kgrAmD/X5RkjW5lvBm4/QKsj5
-      s7VXEKWsx3pGAZMG9w/kFfk4l+UQxSloXbA//nDZDxovqZ5H4Mb/HxuHxI5jJNc/3cbfg2AN
-      ljQMT7RCWF+U8J+gcAfpXvyidZiWdLt1kfIJJte8IwxWZAvzQod6P8t6cMgG57VbVLIceQSB
-      P9jp/isOvHCnFjheXLCBkcmhrZnaeKAbnHFXy7gY/Ff3Ud+kgLndG58lqXZSdI/4O4V0doTf
-      3b6/P+CJ0/vS4fUmi0CT81Ln5AVi7ppA+qQ=
-  skip_cleanup: true
-  distributions: sdist
-  on:
-    tags: true
+  - provider: pypi
+    user:
+      secure: >-
+        R2R3O4H7V0aquEr74MUC264ll8I42RjZWkqLn5wFBPi71K8ABjYatEwIRSxu0iIvqyllWl
+        P33DRZHn362EDMw7byegyM+2x2Rgtdk2jgXWpIvUvasx7s/kkt6+26QmfuVLyl7IWCidFs
+        X6D+PnzVjlRUSO19tAiSJiPjL7VAW3tu/VAQZLHVdJlYWLjdBesH8DLG9YFtcHdbGDwHWU
+        NwfFH6EVW/SOX6SOn0dosls7sQB3nvar9fXlbL/ZhL6/Pxe5yJOYbUW8KJlx87pnmnz7rC
+        b43kSxJ5vn0V3fRVAZdsgglwow0mDccatDO5g1o+b0GTZW4Yn+gZusKUg7z2QIKPyWL+Cq
+        K7X/qMzrQu8ggLMNdHk+XtQKkxxEH7iuwaz1qx6AKE0dIfqBzCkrcD+i9EuvVQVJ0ATJb5
+        ZqwtYILxzEt/EI2phdmSApC/c7AE2hHB5qc2nptFJChK8XBoCgEL2SV+8jLyzui9yjc6A1
+        GX4okxYnFfqBnj+6DIFxqXL+Ni6Jfd6EXm041jr88QbymN+HYoY7rUXDiUOaHEGwie3hqJ
+        NPr3OOvJ13hnMYmSpzloL11ucQvN+/NYJ+8YKXbCZ4j1nka1yRloTt5bB8SErkZIPORi5k
+        ZwNIpiTO8/aWvKci7tsvCTGkjffq8T2zSp4AOTiLyf5KwG7ro84fc=
+    password:
+      secure: >-
+        gRqzq4wU0ChtyTLdbWTAgk1GrEMVuyv/fF651gkDrD73zRKrk04Qbfj3mpyIc6OHPjB1NJ
+        V+tJo9vPuhlAqyX6JqFa51BsbKZkceYMM1fTTCCQWWSSrg8Ubwc+eJK6CBX+IofKSWreTQ
+        LcP7oys7BJ9Ha0rVfmB50DOFEBeBg2Iur052eMCnc9cbpzKcdpjKU5L2uTDuCjg0djAlPE
+        6IqE0SUZUXqOP6NILgFqgSKPy3J45e949IzRCS1FMWEvxleKOQszKSKnKSdRLw/1sQc7U6
+        qvuhAu3qaUDTbjvIB8TM0KAA8etOO+9g0PTvLC2XsQ0buOqg3KJABiBoojW2dzxbL1feq2
+        //SG4WkDZq0OShJmfz1fNzKxW4DJ3+jVAH4zo2Mh+YBvOOHEB9icInMT/kgrAmD/X5RkjW
+        5lvBm4/QKsj5s7VXEKWsx3pGAZMG9w/kFfk4l+UQxSloXbA//nDZDxovqZ5H4Mb/HxuHxI
+        5jJNc/3cbfg2ANljQMT7RCWF+U8J+gcAfpXvyidZiWdLt1kfIJJte8IwxWZAvzQod6P8t6
+        cMgG57VbVLIceQSBP9jp/isOvHCnFjheXLCBkcmhrZnaeKAbnHFXy7gY/Ff3Ud+kgLndG5
+        8lqXZSdI/4O4V0doTf3b6/P+CJ0/vS4fUmi0CT81Ln5AVi7ppA+qQ=
+    skip_cleanup: true
+    distributions: sdist
+    on:
+      tags: true
+      python: 3.6
+  - provider: releases
+    api_key:
+      secure: >-
+        crO3yNa4j6uI2TfxdP/c8h0qdiEXkv4mLviXhyld7bsoZoMqatHasXTNzBYaxycLMCv3Ui
+        q9ARI7e8NwoZMa1DnDNbaGZY1CxWI6fX6JWH7rdIPlo8lvm+dNSdgtJoyFpXAS0LRAWZ+x
+        RflqtMQFy1SR2/vMf6nPm59OdKFu2eNK9VnS5Fqc8NmcbTJrlcGRnBL7xjjPAWlnkDZs4/
+        56I+I/14pFdkmf7wnVccpzbTWAKYCSRb8c0pvp6wShBU2cZFD/xwUypRW8S2F7hUTg+PUh
+        xLGbKAPevr3MO96FvcxUnIve+dTkSQSGr92XH07UYBGt0kdpJEQ/x8UxEHHL583Ikf/V44
+        yq5YnI9eFCmU6Tx5HMha9FwFM6oq3W1CHyaXhNFwA7vfWBRJRnZPkxZB8pznrCQFRXU3q/
+        TzbII8LfrCm3tFNuiWtIGYUkC85+BgJESZz5s1fG+0wolMiUfZEhk1Dqb/ACRfXFAYl6nx
+        x3w1BlyYdeTdDf2Tu7xm5TDS7sJkdOZf7pX0nWpq9QNmGe6lJPmqHUMfuVR6lOiZvjwpcT
+        7s2gTHIELYDGsV6HaimltZCJ6xuCDsjtdc91FZajoeecwhG6BebZN4/SlAJILuWLFYjI48
+        9leYymKcDmQJa0J7tnDW1hFZPvWpLdkQdqCZhyINJESfQ+FAYGAWA=
+    file: ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.xz
+    on:
+      tags: true
+      python: 3.6

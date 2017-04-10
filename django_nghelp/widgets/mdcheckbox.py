@@ -4,32 +4,25 @@
 """Selection Btn."""
 
 from django import forms
-from django.forms.utils import flatatt
-from django.utils.encoding import force_text
-from django.utils.html import format_html
+
+from .base import BaseWidget
 
 
-class MDCheckBox(forms.CheckboxInput):
+class MDCheckBox(BaseWidget, forms.CheckboxInput):
     """Material Checkbox."""
+
+    template_name = "md_checkbox.html"
 
     def __init__(self, label="", *args, **kwargs):
         """Init the instance."""
         super(MDCheckBox, self).__init__(*args, **kwargs)
         self.label = label
 
-    def render(self, name, value, attrs=None):
-        """Render."""
-        final_attrs = self.build_attrs(attrs, type='checkbox', name=name)
-        label = ""
-        if self.check_test(value):
-            final_attrs['checked'] = 'checked'
-        try:
-            label = self.label()
-        except TypeError:
-            label = self.label
-        if not any([isinstance(value, bool), value is None, value == '']):
-            # Only add the 'value' attribute if a value is non-empty.
-            final_attrs['value'] = force_text(value)
-        return format_html(
-            '<md-checkbox{}>{}</md-checkbox>', flatatt(final_attrs), label
-        )
+    def get_context(self, name, value, attrs):
+        """Override get_context."""
+        ret = super(MDCheckBox, self).get_context(name, value, attrs)
+        if "checked" in ret["widget"]["attrs"]:
+            ret["widget"]["attrs"]["data-checked"] = \
+                ret["widget"]["attrs"].pop("checked")
+        ret["widget"]["label"] = self.label
+        return ret

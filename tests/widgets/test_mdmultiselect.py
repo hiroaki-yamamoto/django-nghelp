@@ -30,7 +30,7 @@ class SimpleMDMultiSelectTest(TestCase):
         """The generated code should have data-multiple."""
         result = str(self.widget.render("result", None)).replace("\n", "")
         data = (
-            "<md-select name=\"result\" data-multiple>"
+            "<md-select data-name=\"result\" data-multiple>"
             "<md-option data-value=\"test1\">Test1</md-option>"
             "<md-option data-value=\"test2\">Test2</md-option>"
             "<md-option data-value=\"test3\">Test3</md-option>"
@@ -44,10 +44,10 @@ class SimpleMDMultiSelectTest(TestCase):
             self.widget.render("result", ["test1", "test2"])
         ).replace("\n", "")
         data = (
-            "<md-select name=\"result\" data-multiple>"
-            "<md-option data-value=\"test1\" data-selected=\"selected\">"
+            "<md-select data-name=\"result\" data-multiple>"
+            "<md-option data-value=\"test1\" data-selected>"
             "Test1</md-option>"
-            "<md-option data-value=\"test2\" data-selected=\"selected\">"
+            "<md-option data-value=\"test2\" data-selected>"
             "Test2</md-option>"
             "<md-option data-value=\"test3\">Test3</md-option>"
             "</md-select>"
@@ -66,6 +66,6 @@ class MDMultiSelectNoChoiceTest(TestCase):
         """The generated code should have data-multiple."""
         result = str(self.widget.render("result", None)).replace("\n", "")
         data = (
-            "<md-select name=\"result\" data-multiple></md-select>"
+            "<md-select data-name=\"result\" data-multiple></md-select>"
         )
         self.assertEqual(result, data)

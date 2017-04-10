@@ -25,7 +25,7 @@ class SimpleMDCheckBoxTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", None)
         data = (
-            "<md-checkbox name=\"result\" type=\"checkbox\">"
+            "<md-checkbox data-name=\"result\">"
             "%s</md-checkbox>"
         ) % self.label
         self.assertEqual(result, data)
@@ -43,9 +43,10 @@ class MDCheckBoxCheckedTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", True)
         data = (
-            "<md-checkbox checked=\"checked\" name=\"result\" "
-            "type=\"checkbox\">%s</md-checkbox>"
-        ) % self.label
+            "<md-checkbox data-name=\"result\" data-checked>"
+            "{}"
+            "</md-checkbox>"
+        ).format(self.label)
         self.assertEqual(result, data)
 
 
@@ -61,7 +62,7 @@ class MDCheckBoxHasClassTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", "UWAAAAAHHH")
         data = (
-            "<md-checkbox checked=\"checked\" name=\"result\" "
-            "type=\"checkbox\" value=\"UWAAAAAHHH\">%s</md-checkbox>"
-        ) % self.label
+            "<md-checkbox data-name=\"result\" "
+            "data-value=\"UWAAAAAHHH\" data-checked>{}</md-checkbox>"
+        ).format(self.label)
         self.assertEqual(result, data)

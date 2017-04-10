@@ -4,9 +4,6 @@
 """MDMultiSelect module."""
 
 from django.forms import SelectMultiple
-from django.forms.utils import flatatt
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 from .mdselect import MDSelect
 
 
@@ -15,16 +12,9 @@ class MDMultiSelect(MDSelect, SelectMultiple):
 
     allow_multiple_selected = True
 
-    def render(self, name, value, attrs=None):
-        """Render the widget."""
-        if value is None:
-            value = []
-        final_attrs = self.build_attrs(attrs, name=name, **{
-            "data-multiple": True
-        })
-        output = [format_html('<md-select{}>', flatatt(final_attrs))]
-        options = self.render_options(value)
-        if options:
-            output.append(options)
-        output.append('</md-select>')
-        return mark_safe('\n'.join(output))
+    def get_context(self, name, value, attrs):
+        """Override get_context."""
+        context = super(MDMultiSelect, self).get_context(name, value, attrs)
+        context['widget']['attrs']['data-multiple'] = \
+            bool(context['widget']['attrs'].pop("multiple"))
+        return context
