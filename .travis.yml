@@ -23,14 +23,14 @@ before_deploy:
       git archive --format tar
       --prefix=django-nghelp-${TRAVIS_TAG}/
       -o ${HOME}/django-nghelp-${TRAVIS_TAG}.tar HEAD
-  - cd ${HOME}
-  - tar xf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar
+  - "cd ${HOME}"
+  - "tar xf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar"
   - "cd ${HOME}/django-nghelp-${TRAVIS_TAG}"
   - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
   - "mv setup.py.new setup.py"
   - "cd ${HOME}"
-  - tar czf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.gz django-nghelp-${TRAVIS_TAG}
-  - rm -rf django-nghelp-${TRAVIS_TAG}
+  - "tar czf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.gz django-nghelp-${TRAVIS_TAG}"
+  - "rm -rf django-nghelp-${TRAVIS_TAG}"
   - "cd ${TRAVIS_BUILD_DIR}"
 deploy:
   - provider: pypi
