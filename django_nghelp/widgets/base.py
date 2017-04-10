@@ -6,8 +6,23 @@
 import os
 
 from django.forms.widgets import Widget
-from django.template.backends.jinja2 import Jinja2
+from django.forms.renderers import Jinja2 as Jinja2Base
 from django.utils.safestring import mark_safe
+from django.utils.functional import cached_property
+
+
+class Jinja2Engine(Jinja2Base):
+    """Jinja2 template engine."""
+
+    @cached_property
+    def engine(self):
+        """Return engine setting."""
+        return self.backend({
+            'DIRS': [os.path.join(os.path.dirname(__file__), "./jinja2")],
+            'APP_DIRS': True,
+            'NAME': "django-nghelp-widgets",
+            'OPTIONS': {}
+        })
 
 
 class BaseWidget(Widget):
@@ -15,11 +30,6 @@ class BaseWidget(Widget):
 
     def _render(self, template_name, context, renderer=None):
         """Override render protected function."""
-        renderer = Jinja2({
-            'DIRS': [os.path.join(os.path.dirname(__file__), "./jinja2")],
-            'APP_DIRS': True,
-            'NAME': "django-nghelp-widgets",
-            'OPTIONS': {}
-        })
+        renderer = Jinja2Engine()
         template = renderer.get_template(template_name)
         return mark_safe(template.render(context))
