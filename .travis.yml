@@ -16,18 +16,21 @@ after_success:
   - coveralls
   - codeclimate-test-reporter
 before_deploy:
-  - "git config user.email 'travis@travis-ci.com'"
-  - "git config user.name 'Travis CI'"
-  - "git checkout -b ${TRAVIS_TAG}-${TRAVIS_BUILD_ID}"
   - pandoc -f markdown -t rst -o README.rst README.md
   - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
   - "mv setup.py.new setup.py"
-  - "git add ."
-  - "git commit -m \"Release for ${TRAVIS_TAG}\""
   - >
-      git archive --format tar.gz
+      git archive --format tar
       --prefix=django-nghelp-${TRAVIS_TAG}/
-      -o ${HOME}/django-nghelp-${TRAVIS_TAG}-${TRAVIS_BUILD_ID}.tar.gz HEAD
+      -o ${HOME}/django-nghelp-${TRAVIS_TAG}.tar HEAD
+  - tar xf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar
+  - "cd ${HOME}/django-nghelp-${TRAVIS_TAG}"
+  - "perl -pe \"s/\\[VERSION\\]/${TRAVIS_TAG}/\" setup.py > setup.py.new"
+  - "mv setup.py.new setup.py"
+  - "cd ${HOME}"
+  - tar czf ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.gz django-nghelp-${TRAVIS_TAG}
+  - rm -rf django-nghelp-${TRAVIS_TAG}
+  - "cd ${TRAVIS_BUILD_DIR}"
 deploy:
   - provider: pypi
     user:
