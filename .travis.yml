@@ -76,7 +76,7 @@ deploy:
         x3w1BlyYdeTdDf2Tu7xm5TDS7sJkdOZf7pX0nWpq9QNmGe6lJPmqHUMfuVR6lOiZvjwpcT
         7s2gTHIELYDGsV6HaimltZCJ6xuCDsjtdc91FZajoeecwhG6BebZN4/SlAJILuWLFYjI48
         9leYymKcDmQJa0J7tnDW1hFZPvWpLdkQdqCZhyINJESfQ+FAYGAWA=
-    file: ${HOME}/django-nghelp-${TRAVIS_TAG}-${TRAVIS_BUILD_ID}.tar.gz
+    file: ${HOME}/django-nghelp-${TRAVIS_TAG}.tar.gz
     on:
       tags: true
       python: 3.6
