@@ -1,7 +1,6 @@
 # Angular and Angular Material Helper for Django
 
-[![Travis]][Travis Link] [![Code Climate]][Code Climate Link]
-[![Landscape]][Landscape Link] [![Coveralls]][Coveralls Link]
+[![Travis]][Travis Link] [![Code Climate]][Code Climate Link] [![Coveralls]][Coveralls Link]
 
 [Travis]: https://travis-ci.org/hiroaki-yamamoto/django-nghelp.svg?branch=master
 [Travis Link]: https://travis-ci.org/hiroaki-yamamoto/django-nghelp
@@ -9,8 +8,6 @@
 [Code Climate Link]: https://codeclimate.com/github/hiroaki-yamamoto/django-nghelp
 [Coveralls]: https://coveralls.io/repos/github/hiroaki-yamamoto/django-nghelp/badge.svg?branch=master
 [Coveralls Link]: https://coveralls.io/github/hiroaki-yamamoto/django-nghelp?branch=master
-[Landscape]: https://landscape.io/github/hiroaki-yamamoto/django-nghelp/master/landscape.svg?style=flat
-[Landscape Link]: https://landscape.io/github/hiroaki-yamamoto/django-nghelp/master
 
 # What This?
 This repo contains code that help your AngularJS coding with Django.
