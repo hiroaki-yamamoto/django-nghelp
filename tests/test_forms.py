@@ -3,9 +3,15 @@
 
 """Forms Test."""
 
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import MagicMock  # noqa
 from django import forms, setup
 from django.test import TestCase
-from django_nghelp.forms import AngularForm, AllRequiredForm
+from django_nghelp.forms import (
+    AngularForm, AllRequiredForm, FieldAttributeForm
+)
 
 setup()
 
@@ -67,6 +73,76 @@ class CustomModelAngularFormInitTest(TestCase):
                     " with proper value."
                 ) % name
             )
+
+
+class FieldCommonAttributeFormTest(TestCase):
+    """Field common attirbute form test."""
+
+    def setUp(self):
+        """Setup."""
+        class TestForm(FieldAttributeForm):
+
+            class Meta(object):
+                common_attrs = {
+                    "data-on-load": "test()",
+                    "data-on-delay": MagicMock(return_value="hello()")
+                }
+                fld_attrs = {
+                    "name1": {
+                        "data-test": "test1"
+                    },
+                    "name2": {
+                        "data-test": MagicMock(return_value="test2")
+                    }
+                }
+
+            name1 = forms.CharField(required=False)
+            name2 = forms.CharField(required=False)
+            number = forms.IntegerField(required=False)
+        self.form_cls = TestForm
+        self.form_instance = self.form_cls()
+
+    def test_not_evaluate(self):
+        """
+        The attributes shouldn't be evaluated.
+
+        The attributes shouldn't be evaluated. until get_context is called.
+        """
+        for name, fld in self.form_instance.fields.items():
+            for key in (
+                list(self.form_instance.Meta.common_attrs.keys()) +
+                list(self.form_instance.Meta.fld_attrs.get(name, {}).keys())
+            ):
+                self.assertNotIn(key, fld.widget.attrs)
+
+    def test_evaluate(self):
+        """Calling get context, the attrs should be evaluated."""
+        for name, fld in self.form_instance.fields.items():
+            value = ("test_{}").format(name)
+            widget_attrs = fld.widget.get_context(
+                name, value, {}
+            )["widget"]["attrs"]
+            for key, attr_val in (
+                list(self.form_instance.Meta.common_attrs.items()) +
+                list(self.form_instance.Meta.fld_attrs.get(name, {}).items())
+            ):
+                if isinstance(attr_val, MagicMock):
+                    self.assertEqual(attr_val.return_value, widget_attrs[key])
+                    attr_val.assert_called_with(
+                        self.form_instance, fld, name, value
+                    )
+                else:
+                    self.assertEqual(attr_val, widget_attrs[key])
+        self.assertEqual(
+            self.form_cls.Meta.common_attrs["data-on-delay"].call_count,
+            len(self.form_instance.fields)
+        )
+        self.form_cls.Meta.fld_attrs[
+            "name2"
+        ]["data-test"].assert_called_once_with(
+            self.form_instance, self.form_instance.fields["name2"],
+            "name2", "test_name2"
+        )
 
 
 class AllRequiredFormSimpleTest(TestCase):
