@@ -52,7 +52,9 @@ class CustomModelAngularFormInitTest(TestCase):
         class AngularExampleForm(AngularForm):
             """Example form for AngularJS."""
 
-            ng_model_prefix = "pwn"
+            class Meta(object):
+                ng_model_prefix = "pwn"
+
             name1 = forms.CharField(required=False)
             name2 = forms.CharField(required=False)
             number = forms.IntegerField(required=False)
@@ -65,7 +67,7 @@ class CustomModelAngularFormInitTest(TestCase):
             self.assertTrue(
                 set({
                     "data-ng-model": "%s.%s" % (
-                        self.form_cls.ng_model_prefix, name
+                        self.form_cls.Meta.ng_model_prefix, name
                     )
                 }.items()).issubset(set(field.widget.attrs.items())),
                 (

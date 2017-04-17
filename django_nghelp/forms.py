@@ -11,13 +11,16 @@ from django import forms
 class AngularForm(forms.Form):
     """AngularJS Form."""
 
-    ng_model_prefix = "model"
+    class Meta(object):
+        """Metadata."""
+
+        ng_model_prefix = "model"
 
     def __init__(self, *args, **kwargs):
         """Init the function."""
         super(AngularForm, self).__init__(*args, **kwargs)
         for (name, field) in self.fields.items():
-            model = ("{}.{}").format(self.ng_model_prefix, name)
+            model = ("{}.{}").format(self.Meta.ng_model_prefix, name)
             field.widget.attrs.setdefault("data-ng-model", model)
 
 
