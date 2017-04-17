@@ -3,7 +3,8 @@
 
 """Django AngularJS Helper Froms."""
 
-
+import json
+from datetime import date
 from functools import wraps
 from django import forms
 
@@ -11,17 +12,34 @@ from django import forms
 class AngularForm(forms.Form):
     """AngularJS Form."""
 
-    class Meta(object):
-        """Metadata."""
-
-        ng_model_prefix = "model"
+    def __wrap_ng_init(self, f, fld):
+        """Wrap ng-init attribute."""
+        @wraps(f)
+        def inside(name, value, attrs):
+            attrs["data-ng-init"] = ("{} = {}").format(
+                fld.widget.attrs.get("data-ng-model") or
+                attrs["data-ng-model"], json.dumps(
+                    fld.widget.format_value(value)
+                    if isinstance(value, (date, str)) else
+                    value
+                )
+            )
+            return f(name, value, attrs)
+        return inside
 
     def __init__(self, *args, **kwargs):
         """Init the function."""
         super(AngularForm, self).__init__(*args, **kwargs)
+        metaclass = getattr(self, "Meta", type("Meta", (object,), {}))
+        handle_ng_init = getattr(metaclass, "handle_ng_init", False)
+        self.ng_model_prefix = getattr(metaclass, "ng_model_prefix", "model")
+
         for (name, field) in self.fields.items():
-            model = ("{}.{}").format(self.Meta.ng_model_prefix, name)
+            model = ("{}.{}").format(self.ng_model_prefix, name)
             field.widget.attrs.setdefault("data-ng-model", model)
+            if handle_ng_init:
+                tmp = field.widget.get_context
+                field.widget.get_context = self.__wrap_ng_init(tmp, field)
 
 
 class AllRequiredForm(forms.Form):

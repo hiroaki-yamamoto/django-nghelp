@@ -3,11 +3,14 @@
 
 """Forms Test."""
 
+import json
+import random
 try:
     from unittest.mock import MagicMock
 except ImportError:
     from mock import MagicMock  # noqa
 from django import forms, setup
+from django.utils.timezone import now
 from django.test import TestCase
 from django_nghelp.forms import (
     AngularForm, AllRequiredForm, FieldAttributeForm
@@ -43,6 +46,12 @@ class SimpleAngularFormInitTest(TestCase):
                 ) % name
             )
 
+    def test_get_context(self):
+        """Attribute context shouldn't contain data-ng-init."""
+        for (name, fld) in self.form_cls().fields.items():
+            context = fld.widget.get_context(name, "test", {})["widget"]
+            self.assertNotIn("data-ng-init", context["attrs"])
+
 
 class CustomModelAngularFormInitTest(TestCase):
     """AngularJS Initialization test on custom model prefix."""
@@ -74,6 +83,55 @@ class CustomModelAngularFormInitTest(TestCase):
                     "Field %s doesn't have data-ng-model attribute"
                     " with proper value."
                 ) % name
+            )
+
+
+class AngularFormHasValueTest(TestCase):
+    """Angular form that has value test."""
+
+    def setUp(self):
+        """Setup."""
+        class TestForm(AngularForm):
+
+            class Meta(object):
+                handle_ng_init = True
+
+            name1 = forms.CharField(required=False)
+            name2 = forms.CharField(required=False)
+            number = forms.IntegerField(required=False)
+            date = forms.DateTimeField(required=False)
+
+        self.form = TestForm()
+
+    def gen_value(self, name, fld):
+        """Generate test value."""
+        if isinstance(fld, forms.DateTimeField):
+            return now()
+        if isinstance(fld, forms.IntegerField):
+            return random.randint(0, 10)
+        return ("Test Value {}").format(name)
+
+    def test_get_context(self):
+        """The returned value from get_context should have ng-init event."""
+        for (name, fld) in self.form.fields.items():
+            value = self.gen_value(name, fld)
+            context = fld.widget.get_context(name, value, {})["widget"]
+            expected = ("{}.{} = {}").format(
+                self.form.ng_model_prefix,
+                name, json.dumps(
+                    fld.widget.format_value(value)
+                    if isinstance(fld, forms.DateTimeField) else
+                    value
+                )
+            )
+            self.assertEqual(
+                expected, context["attrs"]["data-ng-init"],
+                (
+                    "{} is different ng-init event. "
+                    "Expected: {}, Actual: {}"
+                ).format(
+                    name, expected, context["attrs"]["data-ng-init"]
+                )
             )
 
 
