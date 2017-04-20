@@ -91,17 +91,26 @@ class AngularFormHasValueTest(TestCase):
 
     def setUp(self):
         """Setup."""
+        class ClassValue(object):
+            def __init__(self, value):
+                self.value = value
+
         class TestForm(AngularForm):
 
             class Meta(object):
                 handle_ng_init = True
+                ng_init_format_func = {
+                    "name3": lambda value: value.value
+                }
 
             name1 = forms.CharField(required=False)
             name2 = forms.CharField(required=False)
+            name3 = forms.CharField(required=False)
             number = forms.IntegerField(required=False)
             date = forms.DateTimeField(required=False)
 
         self.form = TestForm()
+        self.class_value_cls = ClassValue
 
     def gen_value(self, name, fld):
         """Generate test value."""
@@ -109,6 +118,8 @@ class AngularFormHasValueTest(TestCase):
             return now()
         if isinstance(fld, forms.IntegerField):
             return random.randint(0, 10)
+        if name == "name3":
+            return self.class_value_cls(("Test Value {}").format(name))
         return ("Test Value {}").format(name)
 
     def test_get_context(self):
@@ -121,6 +132,8 @@ class AngularFormHasValueTest(TestCase):
                 name, json.dumps(
                     fld.widget.format_value(value)
                     if isinstance(fld, forms.DateTimeField) else
+                    self.form.Meta.ng_init_format_func[name](value)
+                    if name == "name3" else
                     value
                 )
             )
