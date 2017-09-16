@@ -4,10 +4,13 @@
 """MDCheckBox Test Case."""
 
 
+from __future__ import unicode_literals
 from django import setup
 from django.test import TestCase
 
 from django_nghelp.widgets import MDCheckBox
+
+import htmlmin
 
 
 setup()
@@ -25,9 +28,9 @@ class SimpleMDCheckBoxTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", None)
         data = (
-            "<md-checkbox data-name=\"result\">\n  {}\n</md-checkbox>"
+            "<md-checkbox data-name=\"result\"> {} </md-checkbox>"
         ).format(self.label)
-        self.assertEqual(result, data)
+        self.assertEqual(htmlmin.minify(result), htmlmin.minify(data))
 
 
 class MDCheckBoxCheckedTest(TestCase):
@@ -42,10 +45,9 @@ class MDCheckBoxCheckedTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", True)
         data = (
-            "<md-checkbox data-name=\"result\" data-checked>\n  {}\n"
-            "</md-checkbox>"
+            "<md-checkbox data-name=\"result\" data-checked> {} </md-checkbox>"
         ).format(self.label)
-        self.assertEqual(result, data)
+        self.assertEqual(htmlmin.minify(result), htmlmin.minify(data))
 
 
 class MDCheckBoxHasClassTest(TestCase):
@@ -61,9 +63,9 @@ class MDCheckBoxHasClassTest(TestCase):
         result = self.widget.render("result", "UWAAAAAHHH")
         data = (
             "<md-checkbox data-name=\"result\" data-value=\"UWAAAAAHHH\" "
-            "data-checked>\n  {}\n</md-checkbox>"
+            "data-checked> {} </md-checkbox>"
         ).format(self.label)
-        self.assertEqual(result, data)
+        self.assertEqual(htmlmin.minify(result), htmlmin.minify(data))
 
 
 class MDCheckBoxHasHelpTextTest(TestCase):
@@ -79,8 +81,8 @@ class MDCheckBoxHasHelpTextTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", None)
         data = (
-            "<md-checkbox data-name=\"result\">\n"
-            "  %s\n<md-tooltip>%s</md-tooltip>\n"
+            "<md-checkbox data-name=\"result\">"
+            " %s <md-tooltip>%s</md-tooltip> "
             "</md-checkbox>"
         ) % (self.label, self.help_text)
-        self.assertEqual(result, data)
+        self.assertEqual(htmlmin.minify(result), htmlmin.minify(data))
