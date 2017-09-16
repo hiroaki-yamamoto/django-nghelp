@@ -25,9 +25,8 @@ class SimpleMDCheckBoxTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", None)
         data = (
-            "<md-checkbox data-name=\"result\">"
-            "%s</md-checkbox>"
-        ) % self.label
+            "<md-checkbox data-name=\"result\">\n  {}\n</md-checkbox>"
+        ).format(self.label)
         self.assertEqual(result, data)
 
 
@@ -43,8 +42,7 @@ class MDCheckBoxCheckedTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", True)
         data = (
-            "<md-checkbox data-name=\"result\" data-checked>"
-            "{}"
+            "<md-checkbox data-name=\"result\" data-checked>\n  {}\n"
             "</md-checkbox>"
         ).format(self.label)
         self.assertEqual(result, data)
@@ -62,7 +60,27 @@ class MDCheckBoxHasClassTest(TestCase):
         """Test render invokation."""
         result = self.widget.render("result", "UWAAAAAHHH")
         data = (
-            "<md-checkbox data-name=\"result\" "
-            "data-value=\"UWAAAAAHHH\" data-checked>{}</md-checkbox>"
+            "<md-checkbox data-name=\"result\" data-value=\"UWAAAAAHHH\" "
+            "data-checked>\n  {}\n</md-checkbox>"
         ).format(self.label)
+        self.assertEqual(result, data)
+
+
+class MDCheckBoxHasHelpTextTest(TestCase):
+    """MDCheckBox test in the case that the widget has a help text."""
+
+    def setUp(self):
+        """Setup."""
+        self.label = "This is a test"
+        self.help_text = "This is a help text."
+        self.widget = MDCheckBox(self.label, help_text=self.help_text)
+
+    def test_render(self):
+        """Test render invokation."""
+        result = self.widget.render("result", None)
+        data = (
+            "<md-checkbox data-name=\"result\">\n"
+            "  %s\n<md-tooltip>%s</md-tooltip>\n"
+            "</md-checkbox>"
+        ) % (self.label, self.help_text)
         self.assertEqual(result, data)
