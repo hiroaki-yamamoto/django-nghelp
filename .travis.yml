@@ -11,7 +11,7 @@ cache:
     - .tox
 script:
   - detox
-  - coverage combine python27.coverage python36.coverage
+  - coverage combine *.coverage
 after_success:
   - coveralls
   - codeclimate-test-reporter
