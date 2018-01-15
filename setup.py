@@ -40,7 +40,7 @@ setup(
     keywords=keywords,
     url=url,
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 7 - Inactive",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.5"
